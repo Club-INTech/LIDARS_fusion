@@ -7,7 +7,7 @@
 #include <fcntl.h>
 #include <netinet/in.h>
 
-#include <ROBERT_RP/lidar_wrapper/include/ReturnDataWrappers.hpp>
+#include <ReturnDataWrappers.hpp>
 
 class DataSocket {
 public:
