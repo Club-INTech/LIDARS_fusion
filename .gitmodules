@@ -1,0 +1,6 @@
+[submodule "TIM_SICK"]
+	path = TIM_SICK
+	url = https://github.com/Club-INTech/TIM561.git
+[submodule "ROBERT_RP"]
+	path = ROBERT_RP
+	url = https://github.com/Club-INTech/rplidar_a2.git
