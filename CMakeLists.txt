@@ -13,7 +13,8 @@ add_executable(LIDARS_fusion
         COM_HL/include/DataSocket.hpp
         COM_HL/src/DataSocket.cpp
         LICENSE
-        README.md main.cpp)
+        README.md main.cpp
+        Lidar.cpp Lidar.hpp)
 
 add_subdirectory(ROBERT_RP)
 add_subdirectory(TIM_SICK)
