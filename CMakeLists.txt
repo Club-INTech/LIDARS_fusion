@@ -22,7 +22,7 @@ add_subdirectory(TIM_SICK)
 
 # Detect and add SFML
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake_modules" ${CMAKE_MODULE_PATH})
-find_package(SFML REQUIRED COMPONENTS window system graphics )
+find_package(SFML REQUIRED COMPONENTS window system graphics audio )
 if (SFML_FOUND)
     include_directories(${SFML_INCLUDE_DIR})
     target_link_libraries(${EXECUTABLE_NAME} ${SFML_LIBRARIES} ${SFML_DEPENDENCIES})
