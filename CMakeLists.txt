@@ -11,8 +11,6 @@ include_directories(TRAITEMENTS/obstacles/include)
 
 add_executable(LIDARS_fusion
         ${SOURCES}
-        COM_HL/include/DataSocket.hpp
-        COM_HL/src/DataSocket.cpp
         LICENSE
         README.md main.cpp
         Lidar.cpp Lidar.hpp TRAITEMENTS/obstacles/src/Create_obstacle.cpp TRAITEMENTS/obstacles/include/Create_obstacle.hpp TRAITEMENTS/obstacles/include/Obstacle.hpp TRAITEMENTS/obstacles/include/Bounds.hpp)
