@@ -8,8 +8,9 @@
 #include <stdint-gcc.h>
 
 typedef struct Obstacle {
-    uint16_t center_angle = 0;
-    uint16_t distance = 0;
+    double center_angle = 0;
+    double distance = 0;
+    double width = 0;
 } Obstacle;
 
 #endif //LIDARS_FUSION_OBSTACLE_HPP
