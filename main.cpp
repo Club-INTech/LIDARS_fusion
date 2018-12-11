@@ -21,7 +21,7 @@ int main(int argc, char **argv) {
     std::vector<std::string> list_mesures;
 
     // Sound
-    // Play::init_kaamelott_volume();
+    //Play::init_kaamelott_volume();
 
     // LiDAR
     std::cout << "Connection..." << std::endl;
@@ -48,12 +48,12 @@ int main(int argc, char **argv) {
                 auto tmp = lidars[0]->getDataPoints();
 
                 Show::print_shell(tmp, &list_mesures);
-                std::string distance_min = *std::min_element(list_mesures.begin(),list_mesures.end());
+                std::string distance_min = *std::min_element(list_mesures.begin(), list_mesures.end());
                 std::cout << distance_min << " \n";
                 Play::distance_volume_kaamelott(atof(distance_min.c_str()));
 
                 // In shell
-                //Show::print_shell(tmp, list_mesures);
+                //Show::print_shell(tmp, &list_mesures);
                 //Show::show_shell(tmp);
 
                 // In window
@@ -62,7 +62,7 @@ int main(int argc, char **argv) {
             }
         }
     }
-    
+
     lidars[0]->close();
 
     return 0;

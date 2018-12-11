@@ -19,13 +19,20 @@
 
 class Show {
 public:
-    static bool print_shell(std::array<DataPoint, Lidar::NBR_DATA> tmp, std::vector<std::string>* list_mesures);
+    static bool print_shell(std::array<DataPoint, Lidar::NBR_DATA> tmp, std::vector<std::string> *list_mesures);
+
     static bool show_shell(std::array<DataPoint, Lidar::NBR_DATA> tmp);
-    static bool draw_origin(sf::RenderWindow* window, uint16_t* origin_x, uint16_t* origin_y);
-    static bool draw_data(sf::RenderWindow* window, std::array<DataPoint, Lidar::NBR_DATA> tmp, uint16_t* origin_x, uint16_t* origin_y);
-    static bool draw_bounds(sf::RenderWindow* window, uint16_t* origin_x, uint16_t* origin_y);
-    static bool draw_obstacles(sf::RenderWindow* window, uint16_t* origin_x, uint16_t* origin_y);
-    static bool draw_all(sf::RenderWindow* window, std::array<DataPoint, Lidar::NBR_DATA> tmp);
+
+    static bool draw_origin(sf::RenderWindow *window, uint16_t *origin_x, uint16_t *origin_y);
+
+    static bool draw_data(sf::RenderWindow *window, std::array<DataPoint, Lidar::NBR_DATA> tmp, uint16_t *origin_x,
+                          uint16_t *origin_y);
+
+    static bool draw_bounds(sf::RenderWindow *window, uint16_t *origin_x, uint16_t *origin_y);
+
+    static bool draw_obstacles(sf::RenderWindow *window, uint16_t *origin_x, uint16_t *origin_y);
+
+    static bool draw_all(sf::RenderWindow *window, std::array<DataPoint, Lidar::NBR_DATA> tmp);
 };
 
 #endif //LIDARS_FUSION_SHOW_HPP

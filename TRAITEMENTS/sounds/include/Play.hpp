@@ -14,10 +14,14 @@
 class Play {
 public:
     static bool init_kaamelott();
+
     static bool init_kaamelott_volume();
+
     static sf::Sound sound;
     static sf::SoundBuffer buffer;
+
     static bool close_play_kaamelott(DataPoint tmp_i);
+
     static bool distance_volume_kaamelott(double tmp_i_distance);
 };
 
