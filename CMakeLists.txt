@@ -13,7 +13,7 @@ add_executable(LIDARS_fusion
         ${SOURCES}
         LICENSE
         README.md main.cpp
-        Lidar.cpp Lidar.hpp TRAITEMENTS/obstacles/src/Create_obstacle.cpp TRAITEMENTS/obstacles/include/Create_obstacle.hpp TRAITEMENTS/obstacles/include/Obstacle.hpp TRAITEMENTS/obstacles/include/Bounds.hpp)
+        Lidar.cpp Lidar.hpp TRAITEMENTS/obstacles/src/Create_obstacle.cpp TRAITEMENTS/obstacles/include/Create_obstacle.hpp TRAITEMENTS/obstacles/include/Obstacle.hpp TRAITEMENTS/obstacles/include/Bounds.hpp TRAITEMENTS/graphics/include/Show.hpp TRAITEMENTS/graphics/src/Show.cpp TRAITEMENTS/sounds/include/Play.hpp TRAITEMENTS/sounds/src/Play.cpp)
 
 add_subdirectory(ROBERT_RP)
 add_subdirectory(TIM_SICK)
