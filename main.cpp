@@ -21,7 +21,7 @@ int main(int argc, char **argv) {
     std::vector<std::string> list_mesures;
 
     // Sound
-    //Play::init_kaamelott_volume();
+    //grPlay::init_kaamelott_volume();
 
     // LiDAR
     std::cout << "Connection..." << std::endl;
