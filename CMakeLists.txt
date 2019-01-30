@@ -18,7 +18,7 @@ add_executable(LIDARS_fusion
         TRAITEMENTS/graphics/include/Show.hpp TRAITEMENTS/graphics/src/Show.cpp
         TRAITEMENTS/sounds/include/Play.hpp TRAITEMENTS/sounds/src/Play.cpp)
 
-add_subdirectory(ROBERT_RP)
+#add_subdirectory(ROBERT_RP)
 add_subdirectory(TIM_SICK)
 
 # Detect and add SFML
