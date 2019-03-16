@@ -1,11 +1,9 @@
 #include <iostream>
+#include <SFML/Graphics.hpp>
+#include <socket/DataSocket.hpp>
 #include "LIDARS/RPLIDAR_A2/include/lidar/RPLidar.hpp"
 #include "LIDARS/TIM561/include/lidar/TIM561.h"
 #include "obstacles/Create_obstacle.hpp"
-#include <SFML/Graphics.hpp>
-#include "SFML/Audio.hpp"
-#include <tkInt.h>
-#include <socket/DataSocket.hpp>
 #include "graphics/Show.hpp"
 #include "sounds/Play.hpp"
 
@@ -35,7 +33,7 @@ int main(int argc, char **argv) {
 
     // Connexion HL
     DataSocket HL(SERVER_ADDRESS, SERVER_PORT); //Connection to the client
-    while(!HL.accept_client());
+//    while(!HL.accept_client());
 
     // Initialisation : Graphics
     uint16_t h = 1000;
@@ -46,11 +44,18 @@ int main(int argc, char **argv) {
     LIDAR_TYPE lidar = NONE;
     RPLidar lidar_rp;
     TIM561 lidar_tim;
+    if(argc < 2){
+        printf("Error :\tFirst argument must be lidar type (tim || rp)\n\t\tSecond argument may be serial port if RP is choosed(defaults to /dev/ttyUSB)\n");
+        return 1;
+    }
     if(!strcmp(argv[1], "rp")){
         std::cout << "Connection to RPLiDAR A2..." << std::endl;
         lidar_rp.init(argc>2?argv[argc-1] : "/dev/ttyUSB0"); // /dev/ttyUSB0 default
         lidar = RP;
         running = true;
+        if(lidar_rp.start()){
+            std::cout << "Started" << std::endl;
+        }
     }
     if(!strcmp(argv[1], "tim")){
         std::cout << "Connection to TIM561..." << std::endl;
@@ -59,11 +64,13 @@ int main(int argc, char **argv) {
             lidar = TIM;
             running = true;
         }
+        if(lidar_tim.start()){
+            std::cout << "Started" << std::endl;
+        }
     }
     std::vector<std::string> list_mesures;
 
     char * buffer;
-    std::cout << "Started" << std::endl;
 
     while (running) {
         usleep(70000);
@@ -75,7 +82,7 @@ int main(int argc, char **argv) {
             std::string distance_min = *std::min_element(list_mesures.begin(), list_mesures.end());
             std::cout << distance_min << " \n";
             buffer = new char[distance_min.size()];
-            auto result = HL.send_data(buffer);
+//            auto result = HL.send_data(buffer);
             // In window
             Create_obstacle::analyse(tmp, STEP_RP);
             Show::draw_all(&window, tmp);
@@ -87,7 +94,7 @@ int main(int argc, char **argv) {
             std::string distance_min = *std::min_element(list_mesures.begin(), list_mesures.end());
             std::cout << distance_min << " \n";
             buffer = new char[distance_min.size()];
-            auto result = HL.send_data(buffer);
+//            auto result = HL.send_data(buffer);
             // In window
             Create_obstacle::analyse(tmp, STEP_TIM);
             Show::draw_all(&window, tmp);
