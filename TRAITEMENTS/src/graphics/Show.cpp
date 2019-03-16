@@ -2,7 +2,7 @@
 // Created by melanie on 12/11/18.
 //
 
-#include "../include/Show.hpp"
+#include "../../include/graphics/Show.hpp"
 
 // (1,5) en cartésien = (origin_x + 1, -(origin_y + 5) ) en cartésien SFML
 // (x,y) en cartésien = (distance*cos(angle_deg*pi/180), distance*sin(angle*pi/180))

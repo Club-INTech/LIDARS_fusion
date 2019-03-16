@@ -1,11 +1,11 @@
 #include <iostream>
-#include "TIM_SICK/lidar/include/TIM561.h"
+#include "TIM_SICK/lidar/TIM561.h"
 #include "ROBERT_RP/lidar/include/RPLidar.hpp"
 #include "TRAITEMENTS/obstacles/include/Create_obstacle.hpp"
 #include <SFML/Graphics.hpp>
 #include "SFML/Audio.hpp"
 #include <tkInt.h>
-#include <DataSocket.hpp>
+#include <socket/DataSocket.hpp>
 #include "TRAITEMENTS/graphics/include/Show.hpp"
 #include "TRAITEMENTS/sounds/include/Play.hpp"
 

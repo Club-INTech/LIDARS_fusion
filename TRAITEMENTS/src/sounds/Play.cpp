@@ -2,7 +2,7 @@
 // Created by melanie on 12/11/18.
 //
 
-#include "../include/Play.hpp"
+#include "include/Play.hpp"
 
 sf::Sound Play::sound;
 sf::SoundBuffer Play::buffer;

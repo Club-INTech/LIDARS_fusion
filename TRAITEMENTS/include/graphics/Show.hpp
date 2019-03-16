@@ -8,12 +8,12 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <vector>
 #include <SFML/Graphics.hpp>
-#include "../../../TIM_SICK/lidar/include/DataPoint.h"
+#include "TIM_SICK/include/lidar/DataPoint.h"
 #include "../../../Lidar.hpp"
 #include <iostream>
-#include <Bounds.hpp>
-#include <Create_obstacle.hpp>
-#include "../../sounds/include/Play.hpp"
+#include "../obstacles/Bounds.hpp"
+#include "../obstacles/Create_obstacle.hpp"
+#include "../sounds/Play.hpp"
 #include <tkInt.h>
 
 

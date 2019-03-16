@@ -9,8 +9,8 @@
 #include <vector>
 #include "Obstacle.hpp"
 #include "Bounds.hpp"
-#include "../../../TIM_SICK/lidar/include/DataPoint.h"
-#include "../../../TIM_SICK/lidar/include/TIM561.h"
+#include "../../../TIM_SICK/lidar/DataPoint.h"
+#include "../../../TIM_SICK/lidar/TIM561.h"
 
 class Create_obstacle {
 public:

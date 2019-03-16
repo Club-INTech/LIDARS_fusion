@@ -1,4 +1,4 @@
-#include "DataSocket.hpp"
+#include "socket/DataSocket.hpp"
 
 DataSocket::DataSocket(const char *address_string, uint16_t server_port) {
 	//Create socket

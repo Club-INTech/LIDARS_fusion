@@ -8,7 +8,7 @@
 #include "SFML/Audio.hpp"
 #include <iostream>
 #include <tkPort.h>
-#include "../../../TIM_SICK/lidar/include/DataPoint.h"
+#include "../../TIM_SICK/lidar/DataPoint.h"
 
 
 class Play {

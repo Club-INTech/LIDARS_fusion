@@ -4,8 +4,8 @@
 #include <ctgmath>
 #include <cmath>
 #include <tkInt.h>
-#include "../include/Create_obstacle.hpp"
-#include "../../../TIM_SICK/lidar/include/TIM561.h"
+#include "../../include/obstacles/Create_obstacle.hpp"
+#include "../../../TIM_SICK/lidar/TIM561.h"
 
 
 std::vector<Obstacle> Create_obstacle::list_obstacles;

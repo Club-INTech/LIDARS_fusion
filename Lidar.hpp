@@ -3,22 +3,22 @@
 
 #include <string>
 #include <array>
-#include "TIM_SICK/lidar/include/DataPoint.h"
+#include "LIDARS/TIM561/include/lidar/DataPoint.h"
 
 class Lidar {
 
 public:
-    constexpr static uint16_t NBR_DATA = 808;
+    constexpr static uint16_t NBR_DATA = 320;
 
-    virtual bool connect(const std::string &ip, int port);
+    virtual bool connect(const std::string &ip, int port)=0;
 
-    virtual bool start();
+    virtual bool start()=0;
 
-    virtual const std::array<DataPoint, NBR_DATA> &getDataPoints() const;
+    virtual const std::array<std::pair<float, uint16_t>, NBR_DATA> &getDataPoints() const=0;
 
-    virtual void update();
+    virtual void update()=0;
 
-    virtual void close();
+    virtual void close()=0;
 };
 
 
