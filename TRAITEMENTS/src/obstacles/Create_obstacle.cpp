@@ -4,15 +4,14 @@
 #include <ctgmath>
 #include <cmath>
 #include <tkInt.h>
-#include "../../include/obstacles/Create_obstacle.hpp"
-#include "../../../TIM_SICK/lidar/TIM561.h"
+#include "obstacles/Create_obstacle.hpp"
 
 
 std::vector<Obstacle> Create_obstacle::list_obstacles;
 std::vector<Bounds> Create_obstacle::list_bounds;
 
 
-bool Create_obstacle::analyse(std::array<DataPoint, TIM561::NBR_DATA> currentDataPoints) {
+bool Create_obstacle::analyse(const std::vector<std::pair<float, uint16_t>> *currentDataPoints, float step_angle) {
 
     double gapBtwPoints = 0;
     Bounds bound;
@@ -21,47 +20,37 @@ bool Create_obstacle::analyse(std::array<DataPoint, TIM561::NBR_DATA> currentDat
     list_bounds.clear();
     list_obstacles.clear();
 
-    if (currentDataPoints[0].distance < DISTANCE_MAX) {
-        bound.the_beginning_angle = currentDataPoints[0].angle;
-        bound.the_beginning_distance = currentDataPoints[0].distance;
+    if (currentDataPoints->at(0).second < DISTANCE_MAX) {
+        bound.the_beginning_angle = currentDataPoints->at(0).first;
+        bound.the_beginning_distance = currentDataPoints->at(0).second;
         in_obstacle = True;
     }
 
-    for (int i = 1; i < TIM561::NBR_DATA; i++) {
+    for (int i = 1; i < currentDataPoints->size(); i++) {
 
-        gapBtwPoints = sqrt(pow(currentDataPoints[i].distance, 2) + pow(currentDataPoints[i - 1].distance, 2) -
-                            2 * currentDataPoints[i].distance * currentDataPoints[i - 1].distance *
-                            std::cos(abs(PI * TIM561::STEP_ANGLE / 180)));  // Al Kashi
+        gapBtwPoints = sqrt(pow(currentDataPoints->at(i).second, 2) + pow(currentDataPoints->at(i-1).second, 2) -
+                            2 * currentDataPoints->at(i).second * currentDataPoints->at(i-1).second *
+                            std::cos(abs(PI * step_angle / 180)));  // Al Kashi
 
-        //printf("[%g, %d], [%g %d], ecart: %f \n",currentDataPoints[i-1].angle, currentDataPoints[i-1].distance, currentDataPoints[i].angle, currentDataPoints[i].distance, gapBtwPoints);
+        //printf("[%g, %d], [%g %d], ecart: %f \n",currentDataPoints[i-1].angle, currentDataPoints[i-1].distance, currentDataPoints->at(i).angle, currentDataPoints->at(i).distance, gapBtwPoints);
 
 
 
         if (in_obstacle == True &&
-            (gapBtwPoints >= MIN_GAP_BTW_OBSTACLES || currentDataPoints[i].distance > DISTANCE_MAX)) {
-            bound.the_end_angle = currentDataPoints[i - 1].angle;
-            bound.the_end_distance = currentDataPoints[i - 1].distance;
+            (gapBtwPoints >= MIN_GAP_BTW_OBSTACLES || currentDataPoints->at(i).second > DISTANCE_MAX)) {
+            bound.the_end_angle = currentDataPoints->at(i-1).first;
+            bound.the_end_distance = currentDataPoints->at(i-1).second;
             list_bounds.push_back(bound);
             //std::cout << "bound [" << bound.the_beginning_angle << ", " << bound.the_end_angle << "] \n";
             in_obstacle = False;
         }
         if (in_obstacle == False &&
-            currentDataPoints[i].distance < DISTANCE_MAX /*&& gapBtwPoints>=MIN_GAP_BTW_OBSTACLES*/) {
-            bound.the_beginning_angle = currentDataPoints[i].angle;
-            bound.the_beginning_distance = currentDataPoints[i].distance;
+            currentDataPoints->at(i).second < DISTANCE_MAX /*&& gapBtwPoints>=MIN_GAP_BTW_OBSTACLES*/) {
+            bound.the_beginning_angle = currentDataPoints->at(i).first;
+            bound.the_beginning_distance = currentDataPoints->at(i).second;
             in_obstacle = True;
         }
-
-//        for (Bounds bounds : list_bounds) {
-//            std::cout << "[" << bounds.the_end_angle << ", " << bounds.the_end_angle << "] ";
-//        }
-//        std::cout << "\n";
-        //Obstacle o = {.center_angle=0, .distance=0};
-        //list_obstacles.push_back(o);
     }
-//    for (Bounds bound : list_bounds) {
-//            std::cout << "[" << bound.the_end_angle << ", " << bound.the_end_angle << "] \n";
-//    }
     for (int j = 0; j < list_bounds.size(); j++) {
         obstacle.width = sqrt(pow(list_bounds[j].the_beginning_distance, 2) + pow(list_bounds[j].the_end_distance, 2)
                               - 2 * list_bounds[j].the_beginning_distance * list_bounds[j].the_end_distance *
@@ -74,6 +63,5 @@ bool Create_obstacle::analyse(std::array<DataPoint, TIM561::NBR_DATA> currentDat
             list_obstacles.push_back(obstacle);
         }
     }
-    std::cout << "\n\n\n";
     return 1;
 }

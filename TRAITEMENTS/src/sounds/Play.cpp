@@ -2,7 +2,7 @@
 // Created by melanie on 12/11/18.
 //
 
-#include "include/Play.hpp"
+#include "sounds/Play.hpp"
 
 sf::Sound Play::sound;
 sf::SoundBuffer Play::buffer;
@@ -36,9 +36,9 @@ bool Play::init_kaamelott_volume() {
     return false;
 }
 
-bool Play::close_play_kaamelott(DataPoint tmp_i) {
+bool Play::close_play_kaamelott(std::pair<float, uint16_t> tmp_i) {
 
-    if ((Play::sound.getStatus() != Play::sound.Playing) && (tmp_i.distance < 100) && (tmp_i.distance > 90)) {
+    if ((Play::sound.getStatus() != Play::sound.Playing) && (tmp_i.second < 100) && (tmp_i.second > 90)) {
         Play::sound.play();
     }
 

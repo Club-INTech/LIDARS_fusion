@@ -9,32 +9,21 @@
 
 
 
-bool Show::print_shell(std::array<DataPoint, Lidar::NBR_DATA> tmp, std::vector<std::string> *list_mesures) {
+bool Show::print_shell(const std::vector<std::pair<float, uint16_t>> *tmp, std::vector<std::string> *list_mesures) {
 
     list_mesures->clear();
-
-    for (int i = 0; i < TIM561::NBR_DATA; i += 1) {
-//                    list_mesures.push_back("[");
-//                    list_mesures.push_back(std::to_string(tmp[i].angle));
-//                    list_mesures.push_back(",");
-//                    list_mesures.push_back(std::to_string(tmp[i].distance));
-//                    list_mesures.push_back("] ");
-        if (tmp[i].distance > 99) {
-            list_mesures->push_back(std::to_string(tmp[i].distance));
+    for (int i = 0; i < tmp->size(); i ++) {
+        if (tmp->at(i).second > 99) {
+            list_mesures->push_back(std::to_string(tmp->at(i).second));
         }
     }
-//                for (std::string mesure : *list_mesures) {
-//                    std::cout << mesure;
-//                }
-//                printf("\n\n");
-
     return false;
 }
 
-bool Show::show_shell(std::array<DataPoint, Lidar::NBR_DATA> tmp) {
+bool Show::show_shell(const std::vector<std::pair<float, uint16_t>> *tmp) {
 
-    for (int i = 0; i < TIM561::NBR_DATA; i += 1) {
-        if (tmp[i].distance < 500)
+    for (int i = 0; i < tmp->size(); i ++) {
+        if (tmp->at(i).second < 500)
             printf("|");
         else
             printf(".");
@@ -58,29 +47,23 @@ bool Show::draw_origin(sf::RenderWindow *window, uint16_t *origin_x, uint16_t *o
     return false;
 }
 
-bool Show::draw_data(sf::RenderWindow *window, std::array<DataPoint, Lidar::NBR_DATA> tmp, uint16_t *origin_x,
+bool Show::draw_data(sf::RenderWindow *window, const std::vector<std::pair<float, uint16_t>> *tmp, uint16_t *origin_x,
                      uint16_t *origin_y) {
 
-    std::vector<sf::CircleShape> data(tmp.size());
+    std::vector<sf::CircleShape> data(tmp->size());
     double radius_data;
-    if (!tmp.empty()) {
-        for (int i = 0; i < tmp.size(); i++) {
-            data[i].setFillColor(sf::Color(100, 10, 200));
-            //radius_bound = Create_obstacle::list_obstacles[i].width;
-            radius_data = 2;
-            data[i].setRadius(radius_data);
-            data[i].setOrigin(radius_data, radius_data);
-
-            data[i].setPosition(*origin_x + (tmp[i].distance) *
-                                            cos(tmp[i].angle * PI /
-                                                180), *origin_y -
-                                                      (tmp[i].distance) *
-                                                      sin(tmp[i].angle *
-                                                          PI / 180));
-            window->draw(data[i]);
-
-            //Play::close_play_kaamelott(tmp[i]);
-        }
+    for (int i = 0; i < tmp->size(); i++) {
+        data[i].setFillColor(sf::Color(100, 10, 200));
+        radius_data = 2;
+        data[i].setRadius(radius_data);
+        data[i].setOrigin(radius_data, radius_data);
+        data[i].setPosition(*origin_x + (tmp->at(i).second) *
+                                        cos(tmp->at(i).first * PI /
+                                            180), *origin_y -
+                                                  (tmp->at(i).second) *
+                                                  sin(tmp->at(i).first *
+                                                      PI / 180));
+        window->draw(data[i]);
     }
 
     return false;
@@ -102,14 +85,10 @@ bool Show::draw_bounds(sf::RenderWindow *window, uint16_t *origin_x,
         point2.setRadius(radius_bound2);
         point2.setOrigin(radius_bound2, radius_bound2);
 
-        //point.setPosition((origin_x+bound.the_beginning_distance)*cos(bound.the_beginning_angle*PI/180), -((origin_y+bound.the_beginning_distance)*sin(bound.the_beginning_angle*PI/180)));
         point.setPosition(*origin_x + (bound.the_beginning_distance) * cos(bound.the_beginning_angle * PI / 180),
                           (*origin_y + (bound.the_beginning_distance) * sin(bound.the_beginning_angle * PI / 180)));
-        //window.draw(point);
-        //point2.setPosition((origin_x+bound.the_end_distance)*cos(bound.the_end_angle*PI/180), -((origin_y+bound.the_end_distance)*sin(bound.the_end_angle*PI/180)));
         point2.setPosition(*origin_x + (bound.the_end_distance) * cos(bound.the_end_angle * PI / 180),
                            (*origin_y - (bound.the_end_distance) * sin(bound.the_end_angle * PI / 180)));
-        //window.draw(point2);
 
         sf::Vertex line[] =
                 {
@@ -137,12 +116,10 @@ bool Show::draw_obstacles(sf::RenderWindow *window, uint16_t *origin_x, uint16_t
         std::vector<sf::CircleShape> points(Create_obstacle::list_obstacles.size());
         for (int i = 0; i < Create_obstacle::list_obstacles.size(); i++) {
             points[i].setFillColor(sf::Color(10, 100, 200));
-            //radius_bound = Create_obstacle::list_obstacles[i].width;
             radius_bound = 10;
             points[i].setRadius(radius_bound);
             points[i].setOrigin(radius_bound, radius_bound);
 
-            //points[i].setPosition((float) (origin_x+Create_obstacle::list_obstacles[i].distance)*cos(Create_obstacle::list_obstacles[i].center_angle*PI/180), (float) (-((origin_y+Create_obstacle::list_obstacles[i].distance)*sin(Create_obstacle::list_obstacles[i].center_angle*PI/180))));
             points[i].setPosition(*origin_x + (Create_obstacle::list_obstacles[i].distance) *
                                               cos(Create_obstacle::list_obstacles[i].center_angle * PI /
                                                   180), *origin_y -
@@ -156,7 +133,7 @@ bool Show::draw_obstacles(sf::RenderWindow *window, uint16_t *origin_x, uint16_t
     return false;
 }
 
-bool Show::draw_all(sf::RenderWindow *window, std::array<DataPoint, Lidar::NBR_DATA> tmp) {
+bool Show::draw_all(sf::RenderWindow *window, const std::vector<std::pair<float, uint16_t>> *tmp) {
 
     // On fait tourner le programme tant que la fenêtre n'a pas été fermée
     if (window->isOpen()) {

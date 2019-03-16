@@ -9,12 +9,10 @@
 #include <vector>
 #include "Obstacle.hpp"
 #include "Bounds.hpp"
-#include "../../../TIM_SICK/lidar/DataPoint.h"
-#include "../../../TIM_SICK/lidar/TIM561.h"
 
 class Create_obstacle {
 public:
-    static bool analyse(std::array<DataPoint, TIM561::NBR_DATA> currentDataPoints);
+    static bool analyse(const std::vector<std::pair<float, uint16_t>> *currentDataPoints, float step_angle);
 
     static std::vector<Obstacle> list_obstacles;
     static std::vector<Bounds> list_bounds;
