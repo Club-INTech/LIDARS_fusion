@@ -11,7 +11,7 @@
 const static char* SERVER_ADDRESS = "127.0.0.1";
 static const uint16_t  SERVER_PORT    =	17685;
 constexpr static float STEP_TIM       = 0.3345719;
-constexpr static float STEP_RP        = 0.9;
+constexpr static float STEP_RP        = 1.02;
 
 bool running = true;
 void signal_handler(int signo){
